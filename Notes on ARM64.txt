@@ -1,0 +1,55 @@
+Notes on ARM64
+
+SANDBOX: https://cpulator.01xz.net/
+  ^ Using: ARMv7 DE1-SoC
+
+LINKS:
+
+  system call table: https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
+
+REGISTERS:
+
+r7    -   stores information about system requests 
+            ^ e.g. put a system Call Number (e.g. 1 = "terminate program") into r7 and then call an interrupt 
+              ^=> operating system checks lookup table, completes task.
+sp    -   "Stack Pointer" = the next space in Stack memory  
+lr    -   "Link Register" = stores the location a function should return back to
+pc    -   "Program Counter" = keeps track of the next instruction to execute
+cpsr  -   used to store info about program 
+            ^ e.g.  if subtract 2 nums, maybe negative. 
+                    If use negative, in binary, need to use Two's Complement.
+                    ^ But maybe positive. but how know if binary is - or + ?
+                    CPSR sets flag says "result of prev operation was negative"
+                    ^ can then use that information to handle data
+
+SYNTAX:
+
+    operator destination, source/address/immediate
+
+BASIC PROGRAM:
+
+    DEFAULT 2 lines ESSENTIAL:
+
+        .global _start
+        _start:
+
+    ^ _start is a global Label that you can GOTO, and that label plus ":" is defining the nature of this label 
+
+    MOVE NUMBER INTO REGISTER & KILL:
+
+        .global _start
+        _start:
+          mov r0,#30
+          mov r7,#1
+          swi 0
+    
+    ^ here decimal 30, if Hex, 0x1e
+    ^ terminate program; swi (software interrupt); OS reads r7; 1 is "terminate", end.
+    ^ this returns "little endian" storage in r0 -- "0000001e" most sig bit on left.
+      ^ ARM64 is bi-endian. Can reverse if xiang. 
+
+    MOVING REGISTERS AROUND:
+
+      mov r0, #5
+      mov r1, r0
+      
