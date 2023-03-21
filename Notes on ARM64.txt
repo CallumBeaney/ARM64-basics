@@ -6,6 +6,7 @@ SANDBOX: https://cpulator.01xz.net/
 LINKS:
 
   system call table: https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
+  apple docs:        https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms
 
 REGISTERS:
 
