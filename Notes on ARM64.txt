@@ -8,7 +8,15 @@ LINKS:
   system call table: https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
   apple docs:        https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms
 
-REGISTERS:
+
+FILE NAMES:
+
+  .S (capital S) stands for assembly code that must still pass through a pre-processor. That means it can have #include and #define among other macros. It may also be written as .sx.
+
+  .s (lowercase s) is pure assembly code that can be compiled into an object.
+
+
+REGISTERS for ARMv7 DE1-SoC:
 
 r7    -   stores information about system requests 
             ^ e.g. put a system Call Number (e.g. 1 = "terminate program") into r7 and then call an interrupt 
